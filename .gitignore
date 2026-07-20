@@ -11,8 +11,13 @@ MCU098A_*.PDF
 power_wiring_plan.md
 AI-test01_接线指南.md
 
-# DFP pack（在SDK里已有）
-*.pack
+# 构建输出
+*.o
+*.d
+*.axf
+*.map
+*.hex
+*.uvguix.*
 
 # 系统文件
 Thumbs.db
