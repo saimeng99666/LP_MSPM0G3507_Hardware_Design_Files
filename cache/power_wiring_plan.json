@@ -1,0 +1,226 @@
+{
+  "meta": {
+    "name": "7.4V电池全车供电布线方案",
+    "date": "2026-07-18",
+    "project": "2026广东省电子设计竞赛D题-可自动行驶的瞄准装置",
+    "status": "confirmed",
+    "battery": {
+      "type": "2S LiPo",
+      "nominal_voltage": 7.4,
+      "full_voltage": 8.4,
+      "cutoff_voltage": 6.4
+    }
+  },
+  "components": [
+    {
+      "id": "MSPM0G3507",
+      "name": "MSPM0G3507 LaunchPad",
+      "qty": 1,
+      "power_input": {
+        "voltage": 5.0,
+        "pin": "J3 Pin 21",
+        "max_current_ma": 100
+      },
+      "power_outputs": [
+        {
+          "voltage": 5.0,
+          "pin": "J3 Pin 21",
+          "source": "external_feed_through"
+        },
+        {
+          "voltage": 3.3,
+          "pin": "J1 Pin 1",
+          "source": "onboard_TPS73533_LDO",
+          "ldo_max_current_ma": 500
+        }
+      ]
+    },
+    {
+      "id": "TB6612_1",
+      "name": "TB6612FNG 电机驱动板 #1",
+      "qty": 1,
+      "interface": "pin_header_16p",
+      "voltage_inputs": [
+        {
+          "name": "VM",
+          "pin": "右侧 Pin 1",
+          "voltage": 7.4,
+          "source": "battery_direct",
+          "current_normal_a": 1.0,
+          "current_peak_a": 4.0
+        },
+        {
+          "name": "VCC",
+          "pin": "右侧 Pin 2",
+          "voltage": 3.3,
+          "source": "MSPM0_J1_Pin1",
+          "current_ma": 1.5,
+          "note": "必须3.3V！VCC=3.3→VIH=2.31V, MSPM0 3.3V GPIO可直驱。5V会导致VIH=3.5V>3.3V, 驱动不了"
+        }
+      ],
+      "motor_outputs": [
+        {"channel": "A", "pins": ["AO1", "AO2"], "motor": "左前"},
+        {"channel": "B", "pins": ["BO1", "BO2"], "motor": "左后"}
+      ],
+      "control_pins": {
+        "PWMA": "左侧 Pin 1",
+        "AIN2": "左侧 Pin 2",
+        "AIN1": "左侧 Pin 3",
+        "STBY": "左侧 Pin 4",
+        "BIN1": "左侧 Pin 5",
+        "BIN2": "左侧 Pin 6",
+        "PWMB": "左侧 Pin 7",
+        "GND": "左侧 Pin 8"
+      }
+    },
+    {
+      "id": "TB6612_2",
+      "name": "TB6612FNG 电机驱动板 #2",
+      "qty": 1,
+      "interface": "pin_header_16p",
+      "voltage_inputs": [
+        {
+          "name": "VM",
+          "pin": "右侧 Pin 1",
+          "voltage": 7.4,
+          "source": "battery_direct",
+          "current_normal_a": 1.0,
+          "current_peak_a": 4.0
+        },
+        {
+          "name": "VCC",
+          "pin": "右侧 Pin 2",
+          "voltage": 3.3,
+          "source": "MSPM0_J1_Pin1",
+          "current_ma": 1.5
+        }
+      ],
+      "motor_outputs": [
+        {"channel": "A", "pins": ["AO1", "AO2"], "motor": "右前"},
+        {"channel": "B", "pins": ["BO1", "BO2"], "motor": "右后"}
+      ]
+    },
+    {
+      "id": "XL4005_1",
+      "name": "XL4005 降压模块 #1",
+      "qty": 1,
+      "input_voltage": 7.4,
+      "output_voltage": 6.0,
+      "max_current_a": 5.0,
+      "load": "2×MG996R 舵机",
+      "current_normal_a": 0.34,
+      "current_peak_a": 5.0
+    },
+    {
+      "id": "XL4005_2",
+      "name": "XL4005 降压模块 #2",
+      "qty": 1,
+      "input_voltage": 7.4,
+      "output_voltage": 5.0,
+      "max_current_a": 5.0,
+      "load": "MSPM0G3507 + 灰度传感器",
+      "current_normal_ma": 150
+    },
+    {
+      "id": "LM2596S",
+      "name": "LM2596S 降压模块",
+      "qty": 1,
+      "status": "spare",
+      "max_current_a": 3.0,
+      "note": "备用/调试时隔离供电排查问题"
+    }
+  ],
+  "wiring": [
+    {
+      "path": "battery_to_TB6612_VM",
+      "from": "电池 7.4V 正极",
+      "to": ["TB6612_1 VM (右侧 Pin 1)", "TB6612_2 VM (右侧 Pin 1)"],
+      "wire": "18AWG硅胶线 或 2根杜邦并联",
+      "current_peak_a": 8.0
+    },
+    {
+      "path": "battery_to_TB6612_GND",
+      "from": "电池 7.4V 负极",
+      "to": ["TB6612_1 GND (右侧 Pin 3|8)", "TB6612_2 GND (右侧 Pin 3|8)"],
+      "wire": "杜邦 1根"
+    },
+    {
+      "path": "battery_to_XL4005_1_input",
+      "from": "电池 7.4V",
+      "to": "XL4005_1 IN+/IN-",
+      "wire": "18AWG硅胶线 或 杜邦"
+    },
+    {
+      "path": "XL4005_1_to_servos",
+      "from": "XL4005_1 OUT+/OUT-",
+      "to": "2×MG996R (红线=VCC, 棕线=GND)",
+      "wire": "2-3根杜邦并联到分线点",
+      "current_peak_a": 5.0
+    },
+    {
+      "path": "battery_to_XL4005_2_input",
+      "from": "电池 7.4V",
+      "to": "XL4005_2 IN+/IN-",
+      "wire": "杜邦 1根"
+    },
+    {
+      "path": "XL4005_2_to_MSPM0",
+      "from": "XL4005_2 OUT+",
+      "to": "MSPM0 J3 Pin 21 (5V)",
+      "wire": "杜邦 1根"
+    },
+    {
+      "path": "XL4005_2_GND_to_MSPM0",
+      "from": "XL4005_2 OUT-",
+      "to": "MSPM0 J3 Pin 22 (GND)",
+      "wire": "杜邦 1根"
+    },
+    {
+      "path": "MSPM0_3V3_to_TB6612_VCC",
+      "from": "MSPM0 J1 Pin 1 (3.3V)",
+      "to": ["TB6612_1 VCC (右侧 Pin 2)", "TB6612_2 VCC (右侧 Pin 2)"],
+      "wire": "杜邦 1根",
+      "current_ma": 3
+    },
+    {
+      "path": "MSPM0_5V_to_sensor",
+      "from": "MSPM0 J3 Pin 21 (5V)",
+      "to": "灰度传感器 VCC",
+      "wire": "杜邦 1根"
+    },
+    {
+      "path": "MSPM0_GND_to_sensor",
+      "from": "MSPM0 J3 Pin 22 (GND)",
+      "to": "灰度传感器 GND",
+      "wire": "杜邦 1根"
+    }
+  ],
+  "ground_connections": {
+    "description": "所有模块的GND必须连通，否则信号无参考点",
+    "nodes": [
+      "电池 GND",
+      "TB6612_1 GND (右侧 Pin 3, Pin 8; 左侧 Pin 8)",
+      "TB6612_2 GND",
+      "XL4005_1 IN-",
+      "XL4005_1 OUT- → MG996R GND",
+      "XL4005_2 IN-",
+      "XL4005_2 OUT- → MSPM0 J3 Pin 22",
+      "MSPM0 所有 GND 引脚 (内部连通)",
+      "灰度传感器 GND"
+    ]
+  },
+  "voltage_summary": {
+    "7.4V": {"source": "电池直出", "loads": ["TB6612 VM → 4×MC310"], "current": "正常2A / 峰值8A"},
+    "6.0V": {"source": "XL4005#1", "loads": ["2×MG996R"], "current": "正常0.34A / 峰值5A"},
+    "5.0V": {"source": "XL4005#2 → MSPM0 J3 Pin21", "loads": ["MSPM0 + 灰度传感器"], "current": "<150mA"},
+    "3.3V": {"source": "MSPM0板载TPS73533 LDO", "loads": ["TB6612 VCC ×2"], "current": "~3mA"}
+  },
+  "common_mistakes": [
+    {"symptom": "电机不动", "cause": "STBY未接高电平", "fix": "STBY接3.3V"},
+    {"symptom": "电机只单向转", "cause": "AIN1/AIN2有悬空", "fix": "万用表量控制脚"},
+    {"symptom": "舵机狂抖", "cause": "GND未共地", "fix": "查舵机GND直通MCU GND"},
+    {"symptom": "上电MCU复位", "cause": "电机反电动势干扰", "fix": "电池两端并1000μF电容"},
+    {"symptom": "降压模块发烫", "cause": "输出短路", "fix": "断电蜂鸣档量OUT+/OUT-"},
+    {"symptom": "TB6612冷但电机不动", "cause": "VCC未接", "fix": "查MSPM0 3.3V→TB6612 VCC"}
+  ]
+}

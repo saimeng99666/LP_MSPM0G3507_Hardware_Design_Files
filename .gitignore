@@ -1,0 +1,19 @@
+# 大PDF（队友单独拷贝）
+MCU098A_*.PDF
+*.pdf
+
+# Excel/项目文件
+*.xlsx
+*.eprj2
+*.eprj
+
+# 接线计划（临时文档）
+power_wiring_plan.md
+AI-test01_接线指南.md
+
+# DFP pack（在SDK里已有）
+*.pack
+
+# 系统文件
+Thumbs.db
+Desktop.ini
