@@ -7,7 +7,7 @@
 1. **缓存优先** — 先查 `cache/` 目录的 `.vision_cache.json`，命中再读
 2. **开源优先** — 需要新工具/方案先搜 GitHub、CSDN
 3. **社区例程优先** — 写代码先搜 GitHub 实战代码，SDK 通用例程不保证外设能跑
-4. **主动讲原理** — 先答案再解释，不等用户追问 — 先答案再解释，不等用户追问
+4. **主动讲原理** — 先答案再解释，不等用户追问
 
 ## 📖 手册目录
 
@@ -47,4 +47,5 @@
 | MSPM0 SDK | `e:\Desktop\mspm0_sdk_2_10_00_04__all\mspm0_sdk_2_10_00_04\` |
 | 数据手册缓存 | `cache/` |
 | 完整接线方案 | `E:\Desktop\File\MSPM0G3507_完整接线方案.md` |
+| 用户桌面 | `E:\Desktop\`（注意不是C盘） |
 | 用户记忆 | `C:\Users\hp\.claude\projects\e--Desktop-LP-MSPM0G3507-Hardware-Design-Files\memory\` |
