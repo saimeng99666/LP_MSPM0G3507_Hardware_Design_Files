@@ -1,0 +1,84 @@
+{
+  "version": 2,
+  "source": "HC-05 Bluetooth Module Datasheet (CSR BC417 chip)",
+  "cached_at": "2026-07-21T00:00:00.000000",
+  "module": {
+    "name": "HC-05",
+    "type": "Bluetooth V2.0+EDR Serial Port Module",
+    "chip": "CSR Bluecore 04 (BC417)",
+    "package": "Stamp-hole + baseboard with 6-pin header",
+    "dimensions": "27mm × 13mm × 2mm (module), baseboard larger"
+  },
+  "specifications": {
+    "wireless": {
+      "standard": "Bluetooth V2.0+EDR",
+      "frequency": "2.4GHz ISM band",
+      "modulation": "GFSK",
+      "data_rate": "Up to 3 Mbps",
+      "sensitivity": "-80 dBm (typical)",
+      "tx_power": "Up to +4 dBm",
+      "range": "~10 meters (open area)",
+      "antenna": "Integrated PCB antenna",
+      "class": "CLASS 2"
+    },
+    "electrical": {
+      "supply_voltage": "3.6V ~ 6V (baseboard, DO NOT exceed 7V)",
+      "logic_level": "3.3V (internal LDO on baseboard)",
+      "operating_current_unpaired": "~30mA",
+      "operating_current_paired": "~10mA",
+      "io_voltage": "1.8V ~ 3.6V"
+    }
+  },
+  "pinout_baseboard": {
+    "1_VCC": {"name": "VCC", "function": "Power input 3.6~6V, connect to 5V", "direction": "input"},
+    "2_GND": {"name": "GND", "function": "Ground", "direction": "power"},
+    "3_TXD": {"name": "TXD", "function": "UART TX (Bluetooth→MCU), connect to MCU RX", "direction": "output"},
+    "4_RXD": {"name": "RXD", "function": "UART RX (MCU→Bluetooth), connect to MCU TX", "direction": "input"},
+    "5_EN": {"name": "EN/KEY", "function": "AT command mode: HIGH to enter AT mode (baud=38400)", "direction": "input"},
+    "6_STATE": {"name": "STATE", "function": "Connection status: LOW=disconnected, HIGH=connected", "direction": "output"}
+  },
+  "uart_defaults": {
+    "baud_rate": 9600,
+    "data_bits": 8,
+    "stop_bit": 1,
+    "parity": "None",
+    "supported_bauds": [9600, 19200, 38400, 57600, 115200, 230400, 460800]
+  },
+  "at_commands": {
+    "test": "AT",
+    "version": "AT+VERSION?",
+    "set_name": "AT+NAME=<name>",
+    "set_pin": "AT+PSWD=<pin>",
+    "set_baud": "AT+UART=<baud>,<stop>,<parity>",
+    "set_role_master": "AT+ROLE=1",
+    "set_role_slave": "AT+ROLE=0",
+    "get_state": "AT+STATE?",
+    "reset": "AT+RESET",
+    "enter_at_mode": "Hold KEY button while powering on, or pull EN HIGH. LED blinks slowly (1Hz).",
+    "note": "All AT commands must end with \\r\\n. Default PIN code: 1234 or 0000."
+  },
+  "led_status": {
+    "at_mode": "Slow blink (1Hz) — EN=HIGH, baud=38400",
+    "pairable": "Fast blink (2Hz) — waiting for connection",
+    "paired": "Double blink every 2 seconds — connected"
+  },
+  "mspm0_integration": {
+    "recommended_pins": {
+      "uart_tx": "PA10 (UART0_TX, J1.4/J4.33)",
+      "uart_rx": "PA11 (UART0_RX, J4.34)",
+      "en_pin": "Optional: any GPIO for AT mode control",
+      "state_pin": "Optional: any GPIO for connection status"
+    },
+    "jumper_changes": [
+      "J21: move from 1-2 to 2-3 (release PA10 from XDS110 back-channel)",
+      "J22: move from 1-2 to 2-3 (release PA11 from XDS110 back-channel)"
+    ],
+    "wiring": {
+      "hc05_vcc_to": "XL4005#2 OUT+ (5V) or MSPM0 5V pin",
+      "hc05_gnd_to": "Star GND",
+      "hc05_txd_to": "PA11 (MSPM0 UART0 RX)",
+      "hc05_rxd_to": "PA10 (MSPM0 UART0 TX)"
+    },
+    "note": "If using UART0, TB6612#2 AIN2 (PA10) and BIN1 (PA11) must be reassigned to PB5 and PB21 (free GPIOs)."
+  }
+}

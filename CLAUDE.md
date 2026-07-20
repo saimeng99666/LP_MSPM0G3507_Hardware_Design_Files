@@ -37,6 +37,8 @@
 | PB6 | AIN2 | J2.11 |
 | PB7 | AIN1 | J2.12 |
 | PA12 | 舵机 PWM (TIMG0-C0) | J4.8 |
+| PA10 | 蓝牙 TX (UART0) | J1.4/J4.33 |
+| PA11 | 蓝牙 RX (UART0) | J4.34 |
 | PB26 | RGB LED RED | 板载 |
 
 ## 📁 关键路径
