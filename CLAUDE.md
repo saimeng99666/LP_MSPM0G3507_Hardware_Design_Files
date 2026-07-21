@@ -8,7 +8,8 @@
 2. **开源优先** — 需要新工具/方案先搜 GitHub、CSDN
 3. **社区例程优先** — 写代码先搜 GitHub 实战代码，SDK 通用例程不保证外设能跑
 4. **主动讲原理** — 先答案再解释，不等用户追问
-5. **洞洞板焊接原则** — 用啥焊啥，不用的不焊；I2C 必须上拉，UART 不需要
+5. **洞洞板原则** — 板子只当安装底板，不焊走线；连线用杜邦线+排线在空中走；插模块焊排母、插线焊排针；不要剪排母(用单排母座)；I2C 必须上拉，UART 不需要
+6. **降压模块不上板** — XL4005 太大(5.5×2.5cm)，放车架上，只引线到洞洞板
 
 ## 📖 手册目录
 
@@ -28,6 +29,7 @@
 1. **USB 和 XL4005 绝对不能同时供电！** → 烧录拔 XL4005，运行拔 USB
 2. **GPIO 输出必须三步走！** → `initDigitalOutput` → `setPins/clearPins` → `enableOutput`
 3. **排查外设先查供电！** → "板子有电" ≠ "所有模块有电"，USB 只管 MCU
+4. **MC310 电机接口注意！** → 1=电机- 2=VCC 3=A 4=B 5=GND 6=电机+，接反烧编码器！
 
 ## 🔧 当前引脚分配
 
@@ -98,5 +100,6 @@
 | MSPM0 SDK | `e:\Desktop\mspm0_sdk_2_10_00_04__all\mspm0_sdk_2_10_00_04\` |
 | 数据手册缓存 | `cache/` |
 | 完整接线方案 | `E:\Desktop\File\MSPM0G3507_完整接线方案.md` |
+| 洞洞板布线指南 | `E:\Desktop\File\洞洞板布线指南.md` |
 | 用户桌面 | `E:\Desktop\`（注意不是C盘） |
 | 用户记忆 | `C:\Users\hp\.claude\projects\e--Desktop-LP-MSPM0G3507-Hardware-Design-Files\memory\` |
