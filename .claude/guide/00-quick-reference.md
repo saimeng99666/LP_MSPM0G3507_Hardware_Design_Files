@@ -10,18 +10,38 @@
 
 ## 引脚分配速查
 
-| 引脚 | 功能 | LaunchPad | 备注 |
-|------|------|-----------|------|
-| PB4 | 电机 PWM (TIMA1-C0) | J1.18 | function 4 |
-| PB0 | STBY | J1.16 | GPIO 输出 |
-| PB6 | AIN2 | J2.11 | GPIO 输出 |
-| PB7 | AIN1 | J2.12 | GPIO 输出 |
-| PA12 | 舵机 PWM (TIMG0-C0) | J4.8 | function 4 |
-| PB26 | RGB LED RED | 板载 | 诊断 LED |
-| PA10 | 蓝牙 TX (UART0) | J1.4/J4.33 | 需改 J21→2-3 |
-| PA11 | 蓝牙 RX (UART0) | J4.34 | 需改 J22→2-3 |
-| PA19 | SWDIO | 板载 | ⛔ 不可占用 |
-| PA20 | SWCLK | 板载 | ⛔ 不可占用 |
+> 完整清单见 CLAUDE.md 或 `E:\Desktop\File\MSPM0G3507_完整接线方案.md`
+
+### TB6612 #1（左侧电机）
+
+| 引脚 | 功能 | LaunchPad |
+|------|------|-----------|
+| PB4 | PWMA (TIMA1-C0) | J1.18 |
+| PB7/PB6 | AIN1/AIN2 | J2.12/J2.11 |
+| PB1/PB8 | BIN1/BIN2 | J1.19/J2.13 |
+| PB12 | PWMB (TIMA0-C2) | J2.19 |
+| PB0 | STBY | J1.16 |
+
+### TB6612 #2（右侧电机）
+
+| 引脚 | 功能 | LaunchPad |
+|------|------|-----------|
+| PB13 | PWMA (TIMA0-C3) | J2.20 |
+| PA8/PB21 | AIN1/AIN2 | J1.4/J2.15 |
+| PB5/PB9 | BIN1/BIN2 | J1.12/J1.7 |
+| PB20 | PWMB (TIMA0-C2) | J1.37 |
+| PB2 | STBY | J1.9 |
+
+### 舵机/通信/传感器
+
+| 引脚 | 功能 | 备注 |
+|------|------|------|
+| PB10 | 舵机1 PWM (TIMG0-C0) | PCB底部，需焊排针 |
+| PB11 | 舵机2 PWM (TIMG0-C1) | PCB底部，需焊排针 |
+| PA10/PA11 | 蓝牙 UART0 TX/RX | ⚠️ 需改 J21/J22→2-3 |
+| PB2/PB3 | MPU6050 I2C1 SCL/SDA | ⚠️ 需 4.7kΩ 上拉 3.3V |
+| PB26 | RGB LED RED | 板载诊断 LED |
+| PA19/PA20 | SWDIO/SWCLK | ⛔ 不可占用 |
 
 ## 硬件测试状态
 
@@ -32,6 +52,7 @@
 | 舵机1 (PB10/TIMG0-C0) | ✅ 通过 | 2026-07-21 |
 | 舵机2 (PB11/TIMG0-C1) | ⏳ 未测 | — |
 | HC-05 蓝牙 | ✅ 通过 | 2026-07-21 |
+| MPU6050 陀螺仪 | ⏳ 未测 | — |
 | 灰度传感器 ×8 | ⏳ 未测 | — |
 | 编码器 MC310 ×4 | ⏳ 未测 | — |
 
