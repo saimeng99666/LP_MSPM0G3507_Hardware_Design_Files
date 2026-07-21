@@ -7,10 +7,6 @@ MCU098A_*.PDF
 *.eprj2
 *.eprj
 
-# 接线计划（临时文档）
-power_wiring_plan.md
-AI-test01_接线指南.md
-
 # 构建输出
 *.o
 *.d
