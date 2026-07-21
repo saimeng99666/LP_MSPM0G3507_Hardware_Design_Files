@@ -16,9 +16,17 @@
 
 ## 数据手册位置
 
-- `cache/TB6612FNG_Datasheet.pdf.vision_cache.json` — TB6612 数据手册
-- `cache/XL4005_datasheet.pdf.vision_cache.json` — XL4005 数据手册
-- `cache/HC-05_Datasheet.vision_cache.json` — HC-05 蓝牙模块数据手册
+| 格式 | 路径 | 内容 |
+|------|------|------|
+| PDF 原版 | `datasheets/` | TB6612FNG, XL4005, HC-05, slau873 (MSPM0 用户指南) |
+| JSON 缓存 | `cache/` | 上述 PDF 的 `.vision_cache.json` 提取内容 |
+
+### 原版 PDF
+
+- `datasheets/TB6612FNG_Datasheet.pdf` — TB6612 电机驱动
+- `datasheets/XL4005_datasheet.pdf` — XL4005 降压模块
+- `datasheets/HC-05_Datasheet.pdf` — HC-05 蓝牙模块
+- `datasheets/slau873.pdf` — MSPM0G3507 用户指南
 - MC310/灰度传感器: `e:\Desktop\电子设计\星坤杯寻迹小车资料\`
 
 ## 相关资源
