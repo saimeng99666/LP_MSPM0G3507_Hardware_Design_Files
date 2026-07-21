@@ -4,7 +4,7 @@
 
 ## ⚠️ 核心工作规则
 
-1. **缓存优先** — 先查 `cache/` 目录的 `.vision_cache.json`，命中再读
+1. **缓存优先** — 先查 `cache/` 目录的 `.vision_cache.json`，命中再读。cache/ 只放 JSON 缓存，PDF 等原版资料放 `datasheets/`
 2. **开源优先** — 需要新工具/方案先搜 GitHub、CSDN
 3. **社区例程优先** — 写代码先搜 GitHub 实战代码，SDK 通用例程不保证外设能跑
 4. **主动讲原理** — 先答案再解释，不等用户追问
@@ -98,7 +98,8 @@
 |------|------|
 | 项目代码 | `e:\Desktop\MSPM0G3507_Robot\` — Git 仅本地回档，**不推远程** |
 | MSPM0 SDK | `e:\Desktop\mspm0_sdk_2_10_00_04__all\mspm0_sdk_2_10_00_04\` |
-| 数据手册缓存 | `cache/` |
+| 数据手册缓存 (JSON) | `cache/` |
+| 数据手册原版 (PDF) | `datasheets/` |
 | 完整接线方案 | `E:\Desktop\File\MSPM0G3507_完整接线方案.md` |
 | 洞洞板布线指南 | `E:\Desktop\File\洞洞板布线指南.md` |
 | 用户桌面 | `E:\Desktop\`（注意不是C盘） |
